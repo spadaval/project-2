@@ -28,7 +28,7 @@ public class BMH {
           j--;
         }
       } else {
-        int l = lastOccurence.get(text.charAt(i));
+        int l = lastOccurence.getOrDefault(text.charAt(i), -1);
         i = i + m - Math.min(j, 1 + l);
         j = m - 1;
       }
