@@ -14,6 +14,8 @@ public class BMH {
   }
 
   public int match(String text, String pattern) {
+    System.out.println(text);
+    System.out.println(pattern);
     try {
       Map<Character, Integer> lastOccurence = lastOccurenceFunction(pattern);
       int m = pattern.length();
