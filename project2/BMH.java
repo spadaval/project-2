@@ -14,36 +14,32 @@ public class BMH {
   }
 
   public int match(String text, String pattern) {
-    System.out.println(text);
-    System.out.println(pattern);
-    try {
-      Map<Character, Integer> lastOccurence = lastOccurenceFunction(pattern);
-      int m = pattern.length();
-      int n = text.length();
-      assert n >= m;
+    Map<Character, Integer> lastOccurence = lastOccurenceFunction(pattern);
+    int m = pattern.length();
+    int n = text.length();
+    assert n >= m;
 
-      int i = m - 1;
-      int j = m - 1;
-      while (i < n) {
-        if (text.charAt(i) == pattern.charAt(j)) {
-          if (j == 0) {
-            return i;
-          } else {
-            i--;
-            j--;
-          }
+    int i = m - 1;
+    int j = m - 1;
+    while (i < n) {
+      if (text.charAt(i) == pattern.charAt(j)) {
+        if (j == 0) {
+          // we've found a match!
+          //System.out.println(text.substring(i, i + pattern.length()));
+          return i;
         } else {
-          int l = lastOccurence.getOrDefault(text.charAt(i), -1);
-          // if the character isn't in lastOccurence, then it isn't in the pattern.
-          // We move i by 'm - (-1 + 1) = m' places (i.e we skip over all the matching
-          // pattern characters).
-          // If it is, we'll skip over a smaller portion of the template.
-          i += m - Math.min(j, 1 + l);
-          j = m - 1;
+          i--;
+          j--;
         }
+      } else {
+        int l = lastOccurence.getOrDefault(text.charAt(i), -1);
+        // if the character isn't in lastOccurence, then it isn't in the pattern.
+        // We move i by 'm - (-1 + 1) = m' places (i.e we skip over all the matching
+        // pattern characters).
+        // If it is, we'll skip over a smaller portion of the template.
+        i += m - Math.min(j, 1 + l);
+        j = m - 1;
       }
-    } catch (Exception e) {
-      System.out.println(e);
     }
     return -1;
   }
